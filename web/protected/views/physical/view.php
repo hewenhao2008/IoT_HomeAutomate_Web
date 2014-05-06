@@ -1,29 +1,33 @@
 <?php
 /* @var $this PhysicalController */
-/* @var $model GatewayUserPhysicalRating */
+/* @var $model ReportingUserPhysicalRating */
 
 $this->breadcrumbs=array(
-	'Gateway User Physical Ratings'=>array('index'),
-	$model->gatewayUserPhysicalRatingId,
+	'Reporting User Physical Ratings'=>array('index'),
+	$model->reportingUserPhysicalRatingId,
 );
 
 $this->menu=array(
-	array('label'=>'List GatewayUserPhysicalRating', 'url'=>array('index')),
-	array('label'=>'Create GatewayUserPhysicalRating', 'url'=>array('create')),
-	array('label'=>'Update GatewayUserPhysicalRating', 'url'=>array('update', 'id'=>$model->gatewayUserPhysicalRatingId)),
-	array('label'=>'Delete GatewayUserPhysicalRating', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->gatewayUserPhysicalRatingId),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage GatewayUserPhysicalRating', 'url'=>array('admin')),
+	array('label'=>'List ReportingUserPhysicalRating', 'url'=>array('index')),
+	array('label'=>'Create ReportingUserPhysicalRating', 'url'=>array('create')),
+	array('label'=>'Update ReportingUserPhysicalRating', 'url'=>array('update', 'id'=>$model->reportingUserPhysicalRatingId)),
+	array('label'=>'Delete ReportingUserPhysicalRating', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->reportingUserPhysicalRatingId),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage ReportingUserPhysicalRating', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View GatewayUserPhysicalRating #<?php echo $model->gatewayUserPhysicalRatingId; ?></h1>
+<h1>View ReportingUserPhysicalRating #<?php echo $model->reportingUserPhysicalRatingId; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'gatewayUserPhysicalRatingId',
+		'reportingUserPhysicalRatingId',
 		'date',
+		'matchConfidence',
+		'reportedLatitude',
+		'reportedLongitude',
 		'rating',
-		'gatewayUserId',
+		'barometricPayloadId',
+		'reportingUserId',
 	),
 )); ?>

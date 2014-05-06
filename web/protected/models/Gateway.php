@@ -63,7 +63,7 @@ class Gateway extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'barometricPayloads' => array(self::HAS_MANY, 'BarometricPayload', 'reportingGateway_gatewayId'),
+			'barometricPayloads' => array(self::HAS_MANY, 'BarometricPayload', 'gatewayId'),
 			'currentLocationLocation' => array(self::BELONGS_TO, 'Location', 'currentLocation_locationId'),
 			'gatewayUsers' => array(self::HAS_MANY, 'GatewayUser', 'gatewayId'),
 			'gatewayLocations' => array(self::HAS_MANY, 'GatewayLocation', 'Gateway_gatewayId'),

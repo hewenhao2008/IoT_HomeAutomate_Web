@@ -62,16 +62,16 @@ class PhysicalController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GatewayUserPhysicalRating;
+		$model=new ReportingUserPhysicalRating;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUserPhysicalRating']))
+		if(isset($_POST['ReportingUserPhysicalRating']))
 		{
-			$model->attributes=$_POST['GatewayUserPhysicalRating'];
+			$model->attributes=$_POST['ReportingUserPhysicalRating'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserPhysicalRatingId));
+				$this->redirect(array('view','id'=>$model->reportingUserPhysicalRatingId));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class PhysicalController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUserPhysicalRating']))
+		if(isset($_POST['ReportingUserPhysicalRating']))
 		{
-			$model->attributes=$_POST['GatewayUserPhysicalRating'];
+			$model->attributes=$_POST['ReportingUserPhysicalRating'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserPhysicalRatingId));
+				$this->redirect(array('view','id'=>$model->reportingUserPhysicalRatingId));
 		}
 
 		$this->render('update',array(
@@ -122,7 +122,7 @@ class PhysicalController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GatewayUserPhysicalRating');
+		$dataProvider=new CActiveDataProvider('ReportingUserPhysicalRating');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class PhysicalController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GatewayUserPhysicalRating('search');
+		$model=new ReportingUserPhysicalRating('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GatewayUserPhysicalRating']))
-			$model->attributes=$_GET['GatewayUserPhysicalRating'];
+		if(isset($_GET['ReportingUserPhysicalRating']))
+			$model->attributes=$_GET['ReportingUserPhysicalRating'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -150,7 +150,7 @@ class PhysicalController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GatewayUserPhysicalRating::model()->findByPk($id);
+		$model=ReportingUserPhysicalRating::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -162,7 +162,7 @@ class PhysicalController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gateway-user-physical-rating-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='reporting-user-physical-rating-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

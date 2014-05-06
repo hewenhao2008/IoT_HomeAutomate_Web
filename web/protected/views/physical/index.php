@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Gateway User Physical Ratings',
+	'Reporting User Physical Ratings',
 );
 
 $this->menu=array(
-	array('label'=>'Create GatewayUserPhysicalRating', 'url'=>array('create')),
-	array('label'=>'Manage GatewayUserPhysicalRating', 'url'=>array('admin')),
+	array('label'=>'Create ReportingUserPhysicalRating', 'url'=>array('create')),
+	array('label'=>'Manage ReportingUserPhysicalRating', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Gateway User Physical Ratings</h1>
+<h1>Reporting User Physical Ratings</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

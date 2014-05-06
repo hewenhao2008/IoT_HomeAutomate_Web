@@ -1,10 +1,10 @@
 <?php
 
 /**
- * This is the model class for table "GatewayUser".
+ * This is the model class for table "ReportingUser".
  *
- * The followings are the available columns in table 'GatewayUser':
- * @property string $gatewayUserId
+ * The followings are the available columns in table 'ReportingUser':
+ * @property string $reportingUserId
  * @property integer $active
  * @property string $firstName
  * @property string $firstSeen
@@ -12,19 +12,17 @@
  * @property string $lastSeen
  * @property string $password
  * @property string $userName
- * @property string $gatewayId
  *
  * The followings are the available model relations:
- * @property Gateway $gateway
- * @property GatewayUserMoodRating[] $gatewayUserMoodRatings
- * @property GatewayUserPhysicalRating[] $gatewayUserPhysicalRatings
+ * @property ReportingUserMoodRating[] $reportingUserMoodRatings
+ * @property ReportingUserPhysicalRating[] $reportingUserPhysicalRatings
  */
-class GatewayUser extends CActiveRecord
+class ReportingUser extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return GatewayUser the static model class
+	 * @return ReportingUser the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -36,7 +34,7 @@ class GatewayUser extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'GatewayUser';
+		return 'ReportingUser';
 	}
 
 	/**
@@ -47,13 +45,12 @@ class GatewayUser extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('active, firstSeen, lastSeen, password, userName, gatewayId', 'required'),
+			array('active, firstSeen, lastSeen, password, userName', 'required'),
 			array('active', 'numerical', 'integerOnly'=>true),
 			array('firstName, lastName, password, userName', 'length', 'max'=>255),
-			array('gatewayId', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('gatewayUserId, active, firstName, firstSeen, lastName, lastSeen, password, userName, gatewayId', 'safe', 'on'=>'search'),
+			array('reportingUserId, active, firstName, firstSeen, lastName, lastSeen, password, userName', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,9 +62,8 @@ class GatewayUser extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'gateway' => array(self::BELONGS_TO, 'Gateway', 'gatewayId'),
-			'gatewayUserMoodRatings' => array(self::HAS_MANY, 'GatewayUserMoodRating', 'gatewayMoodId'),
-			'gatewayUserPhysicalRatings' => array(self::HAS_MANY, 'GatewayUserPhysicalRating', 'gatewayUserId'),
+			'reportingUserMoodRatings' => array(self::HAS_MANY, 'ReportingUserMoodRating', 'reportingUserId'),
+			'reportingUserPhysicalRatings' => array(self::HAS_MANY, 'ReportingUserPhysicalRating', 'reportingUserId'),
 		);
 	}
 
@@ -77,7 +73,7 @@ class GatewayUser extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'gatewayUserId' => 'Gateway User',
+			'reportingUserId' => 'Reporting User',
 			'active' => 'Active',
 			'firstName' => 'First Name',
 			'firstSeen' => 'First Seen',
@@ -85,7 +81,6 @@ class GatewayUser extends CActiveRecord
 			'lastSeen' => 'Last Seen',
 			'password' => 'Password',
 			'userName' => 'User Name',
-			'gatewayId' => 'Gateway',
 		);
 	}
 
@@ -100,7 +95,7 @@ class GatewayUser extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('gatewayUserId',$this->gatewayUserId,true);
+		$criteria->compare('reportingUserId',$this->reportingUserId,true);
 		$criteria->compare('active',$this->active);
 		$criteria->compare('firstName',$this->firstName,true);
 		$criteria->compare('firstSeen',$this->firstSeen,true);
@@ -108,7 +103,6 @@ class GatewayUser extends CActiveRecord
 		$criteria->compare('lastSeen',$this->lastSeen,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('userName',$this->userName,true);
-		$criteria->compare('gatewayId',$this->gatewayId,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -27,13 +27,23 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'reportedLatitude'); ?>
+		<?php echo $form->textField($model,'reportedLatitude'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'reportedLongitude'); ?>
+		<?php echo $form->textField($model,'reportedLongitude'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'temperature'); ?>
 		<?php echo $form->textField($model,'temperature'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'reportingGateway_gatewayId'); ?>
-		<?php echo $form->textField($model,'reportingGateway_gatewayId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'gatewayId'); ?>
+		<?php echo $form->textField($model,'gatewayId',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row buttons">

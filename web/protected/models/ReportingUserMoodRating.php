@@ -1,28 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "BarometricPayload".
+ * This is the model class for table "ReportingUserMoodRating".
  *
- * The followings are the available columns in table 'BarometricPayload':
- * @property string $barometricPayloadId
+ * The followings are the available columns in table 'ReportingUserMoodRating':
+ * @property string $reportingUserMoodRatingId
  * @property string $date
- * @property double $pressure
+ * @property integer $matchConfidence
  * @property double $reportedLatitude
  * @property double $reportedLongitude
- * @property double $temperature
- * @property string $gatewayId
+ * @property integer $rating
+ * @property string $barometricPayloadId
+ * @property string $reportingUserId
  *
  * The followings are the available model relations:
- * @property Gateway $gateway
- * @property ReportingUserMoodRating[] $reportingUserMoodRatings
- * @property ReportingUserPhysicalRating[] $reportingUserPhysicalRatings
+ * @property ReportingUser $reportingUser
+ * @property BarometricPayload $barometricPayload
  */
-class BarometricPayload extends CActiveRecord
+class ReportingUserMoodRating extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BarometricPayload the static model class
+	 * @return ReportingUserMoodRating the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +34,7 @@ class BarometricPayload extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'BarometricPayload';
+		return 'ReportingUserMoodRating';
 	}
 
 	/**
@@ -45,12 +45,14 @@ class BarometricPayload extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date, pressure, reportedLatitude, reportedLongitude, temperature, gatewayId', 'required'),
-			array('pressure, reportedLatitude, reportedLongitude, temperature', 'numerical'),
-			array('gatewayId', 'length', 'max'=>20),
+			array('reportedLatitude, reportedLongitude, rating, reportingUserId', 'required'),
+			array('matchConfidence, rating', 'numerical', 'integerOnly'=>true),
+			array('reportedLatitude, reportedLongitude', 'numerical'),
+			array('barometricPayloadId, reportingUserId', 'length', 'max'=>20),
+			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('barometricPayloadId, date, pressure, reportedLatitude, reportedLongitude, temperature, gatewayId', 'safe', 'on'=>'search'),
+			array('reportingUserMoodRatingId, date, matchConfidence, reportedLatitude, reportedLongitude, rating, barometricPayloadId, reportingUserId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,9 +64,8 @@ class BarometricPayload extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'gateway' => array(self::BELONGS_TO, 'Gateway', 'gatewayId'),
-			'reportingUserMoodRatings' => array(self::HAS_MANY, 'ReportingUserMoodRating', 'barometricPayloadId'),
-			'reportingUserPhysicalRatings' => array(self::HAS_MANY, 'ReportingUserPhysicalRating', 'barometricPayloadId'),
+			'reportingUser' => array(self::BELONGS_TO, 'ReportingUser', 'reportingUserId'),
+			'barometricPayload' => array(self::BELONGS_TO, 'BarometricPayload', 'barometricPayloadId'),
 		);
 	}
 
@@ -74,13 +75,14 @@ class BarometricPayload extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'barometricPayloadId' => 'Barometric Payload',
+			'reportingUserMoodRatingId' => 'Reporting User Mood Rating',
 			'date' => 'Date',
-			'pressure' => 'Pressure',
+			'matchConfidence' => 'Match Confidence',
 			'reportedLatitude' => 'Reported Latitude',
 			'reportedLongitude' => 'Reported Longitude',
-			'temperature' => 'Temperature',
-			'gatewayId' => 'Gateway',
+			'rating' => 'Rating',
+			'barometricPayloadId' => 'Barometric Payload',
+			'reportingUserId' => 'Reporting User',
 		);
 	}
 
@@ -95,13 +97,14 @@ class BarometricPayload extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('barometricPayloadId',$this->barometricPayloadId,true);
+		$criteria->compare('reportingUserMoodRatingId',$this->reportingUserMoodRatingId,true);
 		$criteria->compare('date',$this->date,true);
-		$criteria->compare('pressure',$this->pressure);
+		$criteria->compare('matchConfidence',$this->matchConfidence);
 		$criteria->compare('reportedLatitude',$this->reportedLatitude);
 		$criteria->compare('reportedLongitude',$this->reportedLongitude);
-		$criteria->compare('temperature',$this->temperature);
-		$criteria->compare('gatewayId',$this->gatewayId,true);
+		$criteria->compare('rating',$this->rating);
+		$criteria->compare('barometricPayloadId',$this->barometricPayloadId,true);
+		$criteria->compare('reportingUserId',$this->reportingUserId,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,13 +1,13 @@
 <?php
 /* @var $this MoodController */
-/* @var $model GatewayUserMoodRating */
+/* @var $model ReportingUserMoodRating */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'gateway-user-mood-rating-form',
+	'id'=>'reporting-user-mood-rating-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -22,15 +22,39 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'matchConfidence'); ?>
+		<?php echo $form->textField($model,'matchConfidence'); ?>
+		<?php echo $form->error($model,'matchConfidence'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'reportedLatitude'); ?>
+		<?php echo $form->textField($model,'reportedLatitude'); ?>
+		<?php echo $form->error($model,'reportedLatitude'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'reportedLongitude'); ?>
+		<?php echo $form->textField($model,'reportedLongitude'); ?>
+		<?php echo $form->error($model,'reportedLongitude'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'rating'); ?>
 		<?php echo $form->textField($model,'rating'); ?>
 		<?php echo $form->error($model,'rating'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'gatewayMoodId'); ?>
-		<?php echo $form->textField($model,'gatewayMoodId',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'gatewayMoodId'); ?>
+		<?php echo $form->labelEx($model,'barometricPayloadId'); ?>
+		<?php echo $form->textField($model,'barometricPayloadId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'barometricPayloadId'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'reportingUserId'); ?>
+		<?php echo $form->textField($model,'reportingUserId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'reportingUserId'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -1,6 +1,6 @@
 <?php
 /* @var $this UserController */
-/* @var $model GatewayUser */
+/* @var $model ReportingUser */
 /* @var $form CActiveForm */
 ?>
 
@@ -12,8 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'gatewayUserId'); ?>
-		<?php echo $form->textField($model,'gatewayUserId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'reportingUserId'); ?>
+		<?php echo $form->textField($model,'reportingUserId',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
@@ -44,11 +44,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'userName'); ?>
 		<?php echo $form->textField($model,'userName',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'gatewayId'); ?>
-		<?php echo $form->textField($model,'gatewayId',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row buttons">

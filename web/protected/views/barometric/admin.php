@@ -48,8 +48,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'barometricPayloadId',
 		'date',
 		'pressure',
+		'reportedLatitude',
+		'reportedLongitude',
 		'temperature',
-		'reportingGateway_gatewayId',
+		/*
+		'gatewayId',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

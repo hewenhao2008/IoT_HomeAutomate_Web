@@ -1,6 +1,6 @@
 <?php
 /* @var $this PhysicalController */
-/* @var $model GatewayUserPhysicalRating */
+/* @var $model ReportingUserPhysicalRating */
 /* @var $form CActiveForm */
 ?>
 
@@ -12,8 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'gatewayUserPhysicalRatingId'); ?>
-		<?php echo $form->textField($model,'gatewayUserPhysicalRatingId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'reportingUserPhysicalRatingId'); ?>
+		<?php echo $form->textField($model,'reportingUserPhysicalRatingId',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
@@ -22,13 +22,33 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'matchConfidence'); ?>
+		<?php echo $form->textField($model,'matchConfidence'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'reportedLatitude'); ?>
+		<?php echo $form->textField($model,'reportedLatitude'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'reportedLongitude'); ?>
+		<?php echo $form->textField($model,'reportedLongitude'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'rating'); ?>
 		<?php echo $form->textField($model,'rating'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'gatewayUserId'); ?>
-		<?php echo $form->textField($model,'gatewayUserId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'barometricPayloadId'); ?>
+		<?php echo $form->textField($model,'barometricPayloadId',array('size'=>20,'maxlength'=>20)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'reportingUserId'); ?>
+		<?php echo $form->textField($model,'reportingUserId',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row buttons">

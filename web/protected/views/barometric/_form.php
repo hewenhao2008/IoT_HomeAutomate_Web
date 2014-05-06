@@ -28,15 +28,27 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'reportedLatitude'); ?>
+		<?php echo $form->textField($model,'reportedLatitude'); ?>
+		<?php echo $form->error($model,'reportedLatitude'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'reportedLongitude'); ?>
+		<?php echo $form->textField($model,'reportedLongitude'); ?>
+		<?php echo $form->error($model,'reportedLongitude'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'temperature'); ?>
 		<?php echo $form->textField($model,'temperature'); ?>
 		<?php echo $form->error($model,'temperature'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'reportingGateway_gatewayId'); ?>
-		<?php echo $form->textField($model,'reportingGateway_gatewayId',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'reportingGateway_gatewayId'); ?>
+		<?php echo $form->labelEx($model,'gatewayId'); ?>
+		<?php echo $form->textField($model,'gatewayId',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'gatewayId'); ?>
 	</div>
 
 	<div class="row buttons">

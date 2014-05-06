@@ -24,7 +24,9 @@ $this->menu=array(
 		'barometricPayloadId',
 		'date',
 		'pressure',
+		'reportedLatitude',
+		'reportedLongitude',
 		'temperature',
-		'reportingGateway_gatewayId',
+		'gatewayId',
 	),
 )); ?>

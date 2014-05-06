@@ -1,25 +1,43 @@
 <?php
 /* @var $this MoodController */
-/* @var $data GatewayUserMoodRating */
+/* @var $data ReportingUserMoodRating */
 ?>
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gatewayUserMoodRatingId')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->gatewayUserMoodRatingId), array('view', 'id'=>$data->gatewayUserMoodRatingId)); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportingUserMoodRatingId')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->reportingUserMoodRatingId), array('view', 'id'=>$data->reportingUserMoodRatingId)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
 	<?php echo CHtml::encode($data->date); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('matchConfidence')); ?>:</b>
+	<?php echo CHtml::encode($data->matchConfidence); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportedLatitude')); ?>:</b>
+	<?php echo CHtml::encode($data->reportedLatitude); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportedLongitude')); ?>:</b>
+	<?php echo CHtml::encode($data->reportedLongitude); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('rating')); ?>:</b>
 	<?php echo CHtml::encode($data->rating); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gatewayMoodId')); ?>:</b>
-	<?php echo CHtml::encode($data->gatewayMoodId); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('barometricPayloadId')); ?>:</b>
+	<?php echo CHtml::encode($data->barometricPayloadId); ?>
 	<br />
 
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportingUserId')); ?>:</b>
+	<?php echo CHtml::encode($data->reportingUserId); ?>
+	<br />
+
+	*/ ?>
 
 </div>

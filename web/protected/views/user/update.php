@@ -1,21 +1,21 @@
 <?php
 /* @var $this UserController */
-/* @var $model GatewayUser */
+/* @var $model ReportingUser */
 
 $this->breadcrumbs=array(
-	'Gateway Users'=>array('index'),
-	$model->gatewayUserId=>array('view','id'=>$model->gatewayUserId),
+	'Reporting Users'=>array('index'),
+	$model->reportingUserId=>array('view','id'=>$model->reportingUserId),
 	'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List GatewayUser', 'url'=>array('index')),
-	array('label'=>'Create GatewayUser', 'url'=>array('create')),
-	array('label'=>'View GatewayUser', 'url'=>array('view', 'id'=>$model->gatewayUserId)),
-	array('label'=>'Manage GatewayUser', 'url'=>array('admin')),
+	array('label'=>'List ReportingUser', 'url'=>array('index')),
+	array('label'=>'Create ReportingUser', 'url'=>array('create')),
+	array('label'=>'View ReportingUser', 'url'=>array('view', 'id'=>$model->reportingUserId)),
+	array('label'=>'Manage ReportingUser', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update GatewayUser <?php echo $model->gatewayUserId; ?></h1>
+<h1>Update ReportingUser <?php echo $model->reportingUserId; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

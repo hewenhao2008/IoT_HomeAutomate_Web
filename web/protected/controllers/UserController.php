@@ -62,16 +62,16 @@ class UserController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GatewayUser;
+		$model=new ReportingUser;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUser']))
+		if(isset($_POST['ReportingUser']))
 		{
-			$model->attributes=$_POST['GatewayUser'];
+			$model->attributes=$_POST['ReportingUser'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserId));
+				$this->redirect(array('view','id'=>$model->reportingUserId));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class UserController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUser']))
+		if(isset($_POST['ReportingUser']))
 		{
-			$model->attributes=$_POST['GatewayUser'];
+			$model->attributes=$_POST['ReportingUser'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserId));
+				$this->redirect(array('view','id'=>$model->reportingUserId));
 		}
 
 		$this->render('update',array(
@@ -122,7 +122,7 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GatewayUser');
+		$dataProvider=new CActiveDataProvider('ReportingUser');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GatewayUser('search');
+		$model=new ReportingUser('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GatewayUser']))
-			$model->attributes=$_GET['GatewayUser'];
+		if(isset($_GET['ReportingUser']))
+			$model->attributes=$_GET['ReportingUser'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -150,7 +150,7 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GatewayUser::model()->findByPk($id);
+		$model=ReportingUser::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -162,7 +162,7 @@ class UserController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gateway-user-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='reporting-user-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

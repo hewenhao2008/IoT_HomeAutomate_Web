@@ -1,12 +1,12 @@
 <?php
 /* @var $this UserController */
-/* @var $data GatewayUser */
+/* @var $data ReportingUser */
 ?>
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gatewayUserId')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->gatewayUserId), array('view', 'id'=>$data->gatewayUserId)); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportingUserId')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->reportingUserId), array('view', 'id'=>$data->reportingUserId)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('active')); ?>:</b>
@@ -36,10 +36,6 @@
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('userName')); ?>:</b>
 	<?php echo CHtml::encode($data->userName); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gatewayId')); ?>:</b>
-	<?php echo CHtml::encode($data->gatewayId); ?>
 	<br />
 
 	*/ ?>

@@ -1,13 +1,13 @@
 <?php
 /* @var $this UserController */
-/* @var $model GatewayUser */
+/* @var $model ReportingUser */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'gateway-user-form',
+	'id'=>'reporting-user-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -55,12 +55,6 @@
 		<?php echo $form->labelEx($model,'userName'); ?>
 		<?php echo $form->textField($model,'userName',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'userName'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'gatewayId'); ?>
-		<?php echo $form->textField($model,'gatewayId',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'gatewayId'); ?>
 	</div>
 
 	<div class="row buttons">

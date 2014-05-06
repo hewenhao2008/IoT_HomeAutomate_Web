@@ -62,16 +62,16 @@ class MoodController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GatewayUserMoodRating;
+		$model=new ReportingUserMoodRating;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUserMoodRating']))
+		if(isset($_POST['ReportingUserMoodRating']))
 		{
-			$model->attributes=$_POST['GatewayUserMoodRating'];
+			$model->attributes=$_POST['ReportingUserMoodRating'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserMoodRatingId));
+				$this->redirect(array('view','id'=>$model->reportingUserMoodRatingId));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class MoodController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GatewayUserMoodRating']))
+		if(isset($_POST['ReportingUserMoodRating']))
 		{
-			$model->attributes=$_POST['GatewayUserMoodRating'];
+			$model->attributes=$_POST['ReportingUserMoodRating'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->gatewayUserMoodRatingId));
+				$this->redirect(array('view','id'=>$model->reportingUserMoodRatingId));
 		}
 
 		$this->render('update',array(
@@ -122,7 +122,7 @@ class MoodController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GatewayUserMoodRating');
+		$dataProvider=new CActiveDataProvider('ReportingUserMoodRating');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class MoodController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GatewayUserMoodRating('search');
+		$model=new ReportingUserMoodRating('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GatewayUserMoodRating']))
-			$model->attributes=$_GET['GatewayUserMoodRating'];
+		if(isset($_GET['ReportingUserMoodRating']))
+			$model->attributes=$_GET['ReportingUserMoodRating'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -150,7 +150,7 @@ class MoodController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GatewayUserMoodRating::model()->findByPk($id);
+		$model=ReportingUserMoodRating::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -162,7 +162,7 @@ class MoodController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gateway-user-mood-rating-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='reporting-user-mood-rating-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

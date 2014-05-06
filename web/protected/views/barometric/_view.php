@@ -17,12 +17,20 @@
 	<?php echo CHtml::encode($data->pressure); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportedLatitude')); ?>:</b>
+	<?php echo CHtml::encode($data->reportedLatitude); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('reportedLongitude')); ?>:</b>
+	<?php echo CHtml::encode($data->reportedLongitude); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('temperature')); ?>:</b>
 	<?php echo CHtml::encode($data->temperature); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reportingGateway_gatewayId')); ?>:</b>
-	<?php echo CHtml::encode($data->reportingGateway_gatewayId); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('gatewayId')); ?>:</b>
+	<?php echo CHtml::encode($data->gatewayId); ?>
 	<br />
 
 

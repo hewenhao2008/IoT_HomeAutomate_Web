@@ -1,15 +1,15 @@
 <?php
 /* @var $this PhysicalController */
-/* @var $model GatewayUserPhysicalRating */
+/* @var $model ReportingUserPhysicalRating */
 
 $this->breadcrumbs=array(
-	'Gateway User Physical Ratings'=>array('index'),
+	'Reporting User Physical Ratings'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List GatewayUserPhysicalRating', 'url'=>array('index')),
-	array('label'=>'Create GatewayUserPhysicalRating', 'url'=>array('create')),
+	array('label'=>'List ReportingUserPhysicalRating', 'url'=>array('index')),
+	array('label'=>'Create ReportingUserPhysicalRating', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('gateway-user-physical-rating-grid', {
+	$.fn.yiiGridView.update('reporting-user-physical-rating-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Gateway User Physical Ratings</h1>
+<h1>Manage Reporting User Physical Ratings</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -41,14 +41,20 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'gateway-user-physical-rating-grid',
+	'id'=>'reporting-user-physical-rating-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'gatewayUserPhysicalRatingId',
+		'reportingUserPhysicalRatingId',
 		'date',
+		'matchConfidence',
+		'reportedLatitude',
+		'reportedLongitude',
 		'rating',
-		'gatewayUserId',
+		/*
+		'barometricPayloadId',
+		'reportingUserId',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
