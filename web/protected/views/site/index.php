@@ -19,4 +19,17 @@ the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
 
-<?php echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/index')); ?>
+<?php $array = array(
+			'a'=>1,
+			'b'=>2,
+			'c'=>3
+			);
+$mood = urlencode(json_encode($array));
+echo "<br>".$mood."<br>";
+
+$url = Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('mood'=>$mood) );
+echo "url=$url<br>";
+?>
+
+<?php echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/index',array('mood'=>$mood) )); ?>
+<?php echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('mood'=>$mood) )); ?>
