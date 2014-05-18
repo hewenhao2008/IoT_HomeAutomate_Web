@@ -8,26 +8,40 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ReportingUser', 'url'=>array('index')),
-	array('label'=>'Create ReportingUser', 'url'=>array('create')),
-	array('label'=>'Update ReportingUser', 'url'=>array('update', 'id'=>$model->reportingUserId)),
-	array('label'=>'Delete ReportingUser', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->reportingUserId),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage ReportingUser', 'url'=>array('admin')),
+	array('label'=>'List Users', 'url'=>array('index')),
+	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->reportingUserId)),
+	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->reportingUserId),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Users', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View ReportingUser #<?php echo $model->reportingUserId; ?></h1>
+<h1>User #<?php echo $model->reportingUserId; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php /*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'reportingUserId',
 		'active',
 		'firstName',
 		'firstSeen',
 		'lastName',
 		'lastSeen',
-		'password',
-		'userName',
 	),
-)); ?>
+)); */?>
+
+<p>
+<?php 
+$moodData = Plotter::multiScaleMoodData($model->reportingUserId); 
+$encodedMoodData = urlencode(json_encode($moodData));
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('data'=>$encodedMoodData) )); 
+?>
+</p>
+
+<p>
+<?php 
+$physicalData = Plotter::multiScalePhysicalData($model->reportingUserId); 
+$encodedPhysicalData = urlencode(json_encode($physicalData));
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('data'=>$encodedPhysicalData) )); 
+?>
+</p>
+

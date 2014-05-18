@@ -49,76 +49,70 @@ class PlotController extends Controller
 
 	public function actionMultiscale()
 	{
-			if(isset($_GET['mood'])){
-				$moodUrl=(string)$_GET['mood'];
-				$moodJson=urldecode($moodUrl);
-				$mood=json_decode($moodJson);
-			}
-			else
-				throw new CHttpException(404,'invalid request');
+		if(isset($_GET['data'])){
+			$dataUrl=(string)$_GET['data'];
+			$dataJson=urldecode($dataUrl);
+			$data=json_decode($dataJson);
+		}
+		else
+			throw new CHttpException(404,'invalid request');
 
+		/* Create and populate the pData object */
+		$MyData = new pData();
+		$MyData->addPoints($data->rating,"Rating");
+		$MyData->addPoints($data->temperature,"Temperature");
+		$MyData->addPoints($data->pressure,"Pressure");
+ 		$MyData->setSerieWeight("Rating",2);
+ 		$MyData->setSerieTicks("Temperature",4);
+ 		$MyData->setSerieTicks("Pressure",4);
 
-		
- /* Create and populate the pData object */
- $MyData = new pData();  
- $MyData->addPoints(array(3,12,15,8,5,-5),"Probe 1");
- $MyData->addPoints(array(2,7,5,18,19,22),"Probe 2");
- $MyData->setSerieWeight("Probe 1",2);
- $MyData->setSerieTicks("Probe 2",4);
- $MyData->setAxisName(0,"Temperatures");
- $MyData->addPoints(array("Jan","Feb","Mar","Apr","May","Jun"),"Labels");
- $MyData->setSerieDescription("Labels","Months");
- $MyData->setAbscissa("Labels");
+ 		/* Create the pChart object */
+ 		$myPicture = new pImage(700,230,$MyData);
 
- /* Create the pChart object */
- $myPicture = new pImage(700,230,$MyData);
+ 		/* Turn of Antialiasing */
+ 		$myPicture->Antialias = FALSE;
 
- /* Turn of Antialiasing */
- $myPicture->Antialias = FALSE;
+ 		/* Draw the background */
+ 		$Settings = array("R"=>170, "G"=>183, "B"=>87, "Dash"=>1, "DashR"=>190, "DashG"=>203, "DashB"=>107);
+ 		$myPicture->drawFilledRectangle(0,0,700,230,$Settings);
 
- /* Draw the background */
- $Settings = array("R"=>170, "G"=>183, "B"=>87, "Dash"=>1, "DashR"=>190, "DashG"=>203, "DashB"=>107);
- $myPicture->drawFilledRectangle(0,0,700,230,$Settings);
+ 		/* Overlay with a gradient */
+ 		$Settings = array("StartR"=>219, "StartG"=>231, "StartB"=>139, "EndR"=>1, "EndG"=>138, "EndB"=>68, "Alpha"=>50);
+ 		$myPicture->drawGradientArea(0,0,700,230,DIRECTION_VERTICAL,$Settings);
+ 		$myPicture->drawGradientArea(0,0,700,20,DIRECTION_VERTICAL,array("StartR"=>0,"StartG"=>0,"StartB"=>0,"EndR"=>50,"EndG"=>50,"EndB"=>50,"Alpha"=>80));
 
- /* Overlay with a gradient */
- $Settings = array("StartR"=>219, "StartG"=>231, "StartB"=>139, "EndR"=>1, "EndG"=>138, "EndB"=>68, "Alpha"=>50);
- $myPicture->drawGradientArea(0,0,700,230,DIRECTION_VERTICAL,$Settings);
- $myPicture->drawGradientArea(0,0,700,20,DIRECTION_VERTICAL,array("StartR"=>0,"StartG"=>0,"StartB"=>0,"EndR"=>50,"EndG"=>50,"EndB"=>50,"Alpha"=>80));
-
- /* Add a border to the picture */
- $myPicture->drawRectangle(0,0,699,229,array("R"=>0,"G"=>0,"B"=>0));
+ 		/* Add a border to the picture */
+ 		$myPicture->drawRectangle(0,0,699,229,array("R"=>0,"G"=>0,"B"=>0));
  
- /* Write the chart title */ 
- $myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/Forgotte.ttf","FontSize"=>8,"R"=>255,"G"=>255,"B"=>255));
- $myPicture->drawText(10,16,"Average recorded temperature",array("FontSize"=>11,"Align"=>TEXT_ALIGN_BOTTOMLEFT));
+ 		/* Write the chart title */ 
+ 		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/Aller_Rg.ttf","FontSize"=>8,"R"=>255,"G"=>255,"B"=>255));
+ 		$myPicture->drawText(10,18,$data->type.' Relative to Temperature and Pressure',array("FontSize"=>9,"Align"=>TEXT_ALIGN_BOTTOMLEFT));
 
- /* Set the default font */
- $myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts//pf_arma_five.ttf","FontSize"=>6,"R"=>0,"G"=>0,"B"=>0));
+ 		/* Set the default font */
+ 		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts//pf_arma_five.ttf","FontSize"=>6,"R"=>0,"G"=>0,"B"=>0));
 
- /* Define the chart area */
- $myPicture->setGraphArea(60,40,650,200);
+ 		/* Define the chart area */
+ 		$myPicture->setGraphArea(60,40,650,200);
 
- /* Draw the scale */
- $scaleSettings = array("XMargin"=>10,"YMargin"=>10,"Floating"=>TRUE,"GridR"=>200,"GridG"=>200,"GridB"=>200,"DrawSubTicks"=>TRUE,"CycleBackground"=>TRUE);
- $myPicture->drawScale($scaleSettings);
+ 		/* Draw the scale */
+ 		$scaleSettings = array("XMargin"=>10,"YMargin"=>10,"Floating"=>TRUE,"GridR"=>200,"GridG"=>200,"GridB"=>200,"DrawSubTicks"=>TRUE,"CycleBackground"=>TRUE);
+ 		$myPicture->drawScale($scaleSettings);
 
- /* Turn on Antialiasing */
- $myPicture->Antialias = TRUE;
+ 		/* Turn on Antialiasing */
+ 		$myPicture->Antialias = TRUE;
 
- /* Enable shadow computing */
- $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+ 		/* Enable shadow computing */
+ 		$myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
 
- /* Draw the line chart */
- $myPicture->drawLineChart();
- $myPicture->drawPlotChart(array("DisplayValues"=>TRUE,"PlotBorder"=>TRUE,"BorderSize"=>2,"Surrounding"=>-60,"BorderAlpha"=>80));
+ 		/* Draw the line chart */
+ 		$myPicture->drawLineChart();
+ 		$myPicture->drawPlotChart(array("DisplayValues"=>FALSE,"PlotBorder"=>TRUE,"BorderSize"=>2,"Surrounding"=>-60,"BorderAlpha"=>80));
 
- /* Write the chart legend */
- $myPicture->drawLegend(590,9,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL,"FontR"=>255,"FontG"=>255,"FontB"=>255));
+ 		/* Write the chart legend */
+ 		$myPicture->drawLegend(530,9,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL, "FontR"=>255,"FontG"=>255,"FontB"=>255));
 
 		header ('Content-type: image/png');
 		$myPicture->Render(null);
-
-
 	}
 
 	// Uncomment the following methods and override them if needed
