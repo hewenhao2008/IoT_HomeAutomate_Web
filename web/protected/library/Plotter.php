@@ -44,14 +44,14 @@ class Plotter
 			if($record->temperature > $maxTemperature){
 				$maxTemperature = $record->temperature;
 			} 
-			else if($record->temperature < $minTemperature){
+			if($record->temperature < $minTemperature){
 				$minTemperature = $record->temperature;
 			}
 
 			if($record->pressure > $maxPressure){
 				$maxPressure = $record->pressure;
 			} 
-			else if($record->pressure < $minPressure){
+			if($record->pressure < $minPressure){
 				$minPressure = $record->pressure;
 			}
 		}
@@ -68,7 +68,16 @@ class Plotter
 		$pressureOffset = 0 - $minPressure;
 		$pressureRange = $maxPressure - $minPressure;
 
-		if($temperatureRange > $pressureRange){
+		if($temperatureRange == 0 || $pressureRange == 0){
+			$range = $minTemperature - $minPressure;
+			if($range < 0){
+				$range = $range * -1;
+			}
+			$temperatureScale = $range / $minTemperature;
+			$pressureScale = $range / $minPressure;
+			$ratingScale = $range / $ratingRange;
+		}
+		else if($temperatureRange > $pressureRange){
 			$pressureScale = $temperatureRange / $pressureRange;
 			$ratingScale = $temperatureRange / $ratingRange;
 		}
