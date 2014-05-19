@@ -32,6 +32,32 @@ class Plotter
 		return $normalizedData;
 	}
 
+	static public function scatterMoodData(){
+		
+		$criteria = new CDbCriteria;
+		$criteria->order = 'moodRatingMaterializedViewId DESC';
+		$criteria->limit = 1000;
+		$records = MoodRatingMaterializedView::model()->findAll($criteria);
+
+		$arrayData = Plotter::arrayData($records);
+		$arrayData['type'] = 'Mood';
+
+		return $arrayData;
+	}
+
+	static public function scatterPhysicalData(){
+		
+		$criteria = new CDbCriteria;
+		$criteria->order = 'physicalRatingMaterializedViewId DESC';
+		$criteria->limit = 1000;
+		$records = PhysicalRatingMaterializedView::model()->findAll($criteria);
+
+		$arrayData = Plotter::arrayData($records);
+		$arrayData['type'] = 'Physical';
+
+		return $arrayData;
+	}
+
 	static private function normalizeData($records)
 	{
 		$maxTemperature = -PHP_INT_MAX;
@@ -106,6 +132,25 @@ class Plotter
 				'pressure' => $pressure
 				);
 		return $normalizedData;
+	}
+
+	static private function arrayData($records)
+	{
+		$rating = array();
+		$temperature = array();
+		$pressure = array();
+		foreach($records as $record){
+			array_push($rating,$record->rating);
+			array_push($temperature,$record->temperature);
+			array_push($pressure,$record->pressure);
+		}
+
+		$arrayData = array(
+				'rating' => $rating,
+				'temperature' => $temperature,
+				'pressure' => $pressure
+				);
+		return $arrayData;
 	}
 
 }

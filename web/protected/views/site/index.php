@@ -4,32 +4,46 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<?php $moodData = Plotter::scatterMoodData(); ?>
+<?php $physicalData = Plotter::scatterPhysicalData(); ?>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
-
-<?php $array = array(
-			'a'=>1,
-			'b'=>2,
-			'c'=>3
-			);
-$mood = urlencode(json_encode($array));
-echo "<br>".$mood."<br>";
-
-$url = Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('mood'=>$mood) );
-echo "url=$url<br>";
+<table style="width:100%">
+<tr>
+<td>
+<?php
+$moodData['type']="Coorelation of Mood with Temperature";
+$moodData['series']=0;
+$encodedMoodData = urlencode(json_encode($moodData));
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedMoodData) )); 
 ?>
+</td>
+<td>
+<?php
+$moodData['type']="Coorelation of Mood with Pressure";
+$moodData['series']=1;
+$encodedMoodData = urlencode(json_encode($moodData));
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedMoodData) )); 
+?>
+</td>
+</tr>
 
-<?php echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/index',array('mood'=>$mood) )); ?>
-<?php echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/multiscale',array('mood'=>$mood) )); ?>
+<tr>
+<td>
+<?php
+$physicalData['type']="Coorelation of Physical with Temperature";
+$physicalData['series']=0;
+$encodedPhysicalData = urlencode(json_encode($physicalData));
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedPhysicalData) )); 
+?>
+</td>
+<td>
+<?php
+$physicalData['type']="Coorelation of Physical with Pressure";
+$physicalData['series']=1;
+$encodedPhysicalData = urlencode(json_encode($physicalData));
+$url = Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedPhysicalData) );
+echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedPhysicalData) )); 
+?>
+</td>
+</tr>
+</table> 
