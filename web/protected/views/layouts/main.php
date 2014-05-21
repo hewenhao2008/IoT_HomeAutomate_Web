@@ -29,9 +29,10 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Home', 'url'=>array('/site/home'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Users', 'url'=>array('/user/index'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Barometric Readings', 'url'=>array('/barometric/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Barometric Readings', 'url'=>array('/barometric/index')),
 				array('label'=>'Mood Ratings', 'url'=>array('/mood/index'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Physical Ratings', 'url'=>array('/physical/index'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -40,7 +41,9 @@
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
+		<?php $homeLink = Yii::app()->user->isGuest ? CHtml::link('Home', Yii::app()->homeUrl) : CHtml::link('Home', array('/site/home')); ?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+			'homeLink'=>$homeLink,
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
@@ -50,7 +53,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> Moose in the Mist, INC.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->

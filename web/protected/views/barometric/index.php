@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create BarometricPayload', 'url'=>array('create')),
-	array('label'=>'Manage BarometricPayload', 'url'=>array('admin')),
+	array('label'=>'Create BarometricPayload', 'url'=>array('create'), 'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Manage BarometricPayload', 'url'=>array('admin'), 'visible'=>!Yii::app()->user->isGuest),
 );
 ?>
 

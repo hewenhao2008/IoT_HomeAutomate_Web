@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-	public $defaultAction = 'Login';
+	public $defaultAction = 'Index';
 
 	/**
 	 * Declares class-based actions.
@@ -22,6 +22,15 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index');
+	}
+
+	/**
+	 * This is the default 'index' action that is invoked
+	 * when an action is not explicitly requested by users.
+	 */
+	public function actionHome()
+	{
+		$this->render('home');
 	}
 
 	/**
@@ -58,7 +67,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(array('site/index'));
+				$this->redirect(array('site/home'));
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
