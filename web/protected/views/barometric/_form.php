@@ -40,6 +40,18 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'sensorIdentifier'); ?>
+		<?php echo $form->textField($model,'sensorIdentifier',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'sensorIdentifier'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'sensorManufacturer'); ?>
+		<?php echo $form->textField($model,'sensorManufacturer',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'sensorManufacturer'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'temperature'); ?>
 		<?php echo $form->textField($model,'temperature'); ?>
 		<?php echo $form->error($model,'temperature'); ?>

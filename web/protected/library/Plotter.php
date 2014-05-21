@@ -58,6 +58,26 @@ class Plotter
 		return $arrayData;
 	}
 
+	static public function sensorData($sensorId){
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'sensorIdentifier = :sensorId';
+		$criteria->params = array(':sensorId' => $sensorId);
+		$criteria->order = 'barometricPayloadId DESC';
+		$criteria->limit = 50;
+		$records = BarometricPayload::model()->findAll($criteria);
+
+		$pressure = array();
+		foreach($records as $record){
+			array_push($pressure,$record->pressure);
+		}
+
+		$arrayData = array(
+				'pressure' => $pressure,
+				'type'=>'pressure'
+				);
+		return $arrayData;
+	}
+
 	static private function normalizeData($records)
 	{
 		$maxTemperature = -PHP_INT_MAX;

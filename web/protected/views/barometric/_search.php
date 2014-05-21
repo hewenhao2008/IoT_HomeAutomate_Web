@@ -37,6 +37,16 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'sensorIdentifier'); ?>
+		<?php echo $form->textField($model,'sensorIdentifier',array('size'=>20,'maxlength'=>20)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'sensorManufacturer'); ?>
+		<?php echo $form->textField($model,'sensorManufacturer',array('size'=>20,'maxlength'=>20)); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'temperature'); ?>
 		<?php echo $form->textField($model,'temperature'); ?>
 	</div>

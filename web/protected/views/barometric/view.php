@@ -26,6 +26,8 @@ $this->menu=array(
 		'pressure',
 		'reportedLatitude',
 		'reportedLongitude',
+		'sensorIdentifier',
+		'sensorManufacturer',
 		'temperature',
 		'gatewayId',
 	),

@@ -32,6 +32,7 @@
 				array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Home', 'url'=>array('/site/home'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Users', 'url'=>array('/user/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Sensors', 'url'=>array('/sensor/index')),
 				array('label'=>'Barometric Readings', 'url'=>array('/barometric/index')),
 				array('label'=>'Mood Ratings', 'url'=>array('/mood/index'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Physical Ratings', 'url'=>array('/physical/index'), 'visible'=>!Yii::app()->user->isGuest),

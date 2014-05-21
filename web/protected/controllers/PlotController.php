@@ -213,6 +213,70 @@ class PlotController extends Controller
 		$myPicture->Render(null);
 	}
 
+	public function actionSensor()
+	{
+		if(isset($_GET['data'])){
+			$dataUrl=(string)$_GET['data'];
+			$dataJson=urldecode($dataUrl);
+			$data=json_decode($dataJson);
+		}
+		else
+			throw new CHttpException(404,'invalid request');
+
+		/* Create and populate the pData object */
+		$MyData = new pData();
+		$MyData->addPoints($data->pressure,"Pressure");
+ 		$MyData->setSerieWeight("Pressure",2);
+
+ 		/* Create the pChart object */
+ 		$myPicture = new pImage(908,230,$MyData);
+
+ 		/* Turn of Antialiasing */
+ 		$myPicture->Antialias = FALSE;
+
+ 		/* Draw the background */
+ 		$Settings = array("R"=>170, "G"=>183, "B"=>87, "Dash"=>1, "DashR"=>190, "DashG"=>203, "DashB"=>107);
+ 		$myPicture->drawFilledRectangle(0,0,908,230,$Settings);
+
+ 		/* Overlay with a gradient */
+ 		$Settings = array("StartR"=>219, "StartG"=>231, "StartB"=>139, "EndR"=>1, "EndG"=>138, "EndB"=>68, "Alpha"=>50);
+ 		$myPicture->drawGradientArea(0,0,908,230,DIRECTION_VERTICAL,$Settings);
+ 		$myPicture->drawGradientArea(0,0,908,20,DIRECTION_VERTICAL,array("StartR"=>0,"StartG"=>0,"StartB"=>0,"EndR"=>50,"EndG"=>50,"EndB"=>50,"Alpha"=>80));
+
+ 		/* Add a border to the picture */
+ 		$myPicture->drawRectangle(0,0,907,229,array("R"=>0,"G"=>0,"B"=>0));
+ 
+ 		/* Write the chart title */ 
+ 		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/Aller_Rg.ttf","FontSize"=>8,"R"=>255,"G"=>255,"B"=>255));
+ 		$myPicture->drawText(10,18,$data->type,array("FontSize"=>9,"Align"=>TEXT_ALIGN_BOTTOMLEFT));
+
+ 		/* Set the default font */
+ 		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/pf_arma_five.ttf","FontSize"=>6,"R"=>0,"G"=>0,"B"=>0));
+
+ 		/* Define the chart area */
+ 		$myPicture->setGraphArea(60,40,857,200);
+
+ 		/* Draw the scale */
+ 		$scaleSettings = array("XMargin"=>10,"YMargin"=>10,"Floating"=>TRUE,"GridR"=>200,"GridG"=>200,"GridB"=>200,"DrawSubTicks"=>TRUE,"CycleBackground"=>TRUE);
+ 		$myPicture->drawScale($scaleSettings);
+
+ 		/* Turn on Antialiasing */
+ 		$myPicture->Antialias = TRUE;
+
+ 		/* Enable shadow computing */
+ 		$myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+
+ 		/* Draw the line chart */
+ 		$myPicture->drawLineChart();
+ 		$myPicture->drawPlotChart(array("DisplayValues"=>FALSE,"PlotBorder"=>TRUE,"BorderSize"=>2,"Surrounding"=>-60,"BorderAlpha"=>80));
+
+ 		/* Write the chart legend */
+ 		$myPicture->drawLegend(850,9,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL, "FontR"=>255,"FontG"=>255,"FontB"=>255));
+
+		header ('Content-type: image/png');
+		$myPicture->Render(null);
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
