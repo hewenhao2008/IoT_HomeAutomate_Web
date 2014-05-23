@@ -85,20 +85,28 @@ class Plotter
 		$maxPressure = -PHP_INT_MAX;
 		$minPressure = PHP_INT_MAX;
 
+		$nullTemperature = true;
+		$nullPressure = true;
 		foreach($records as $record){
 
-			if($record->temperature > $maxTemperature){
-				$maxTemperature = $record->temperature;
-			} 
-			if($record->temperature < $minTemperature){
-				$minTemperature = $record->temperature;
+			if($record->temperature != NULL){
+				$nullTemperature=false;
+				if($record->temperature > $maxTemperature){
+					$maxTemperature = $record->temperature;
+				} 
+				if($record->temperature < $minTemperature){
+					$minTemperature = $record->temperature;
+				}
 			}
 
-			if($record->pressure > $maxPressure){
-				$maxPressure = $record->pressure;
-			} 
-			if($record->pressure < $minPressure){
-				$minPressure = $record->pressure;
+			if($record->pressure != NULL){
+				$nullPressure=false;
+				if($record->pressure > $maxPressure){
+					$maxPressure = $record->pressure;
+				} 
+				if($record->pressure < $minPressure){
+					$minPressure = $record->pressure;
+				}
 			}
 		}
 
@@ -114,22 +122,28 @@ class Plotter
 		$pressureOffset = 0 - $minPressure;
 		$pressureRange = $maxPressure - $minPressure;
 
-		if($temperatureRange == 0 || $pressureRange == 0){
-			$range = $minTemperature - $minPressure;
-			if($range < 0){
-				$range = $range * -1;
+		if($nullTemperature == false && $nullPressure == false) {
+			if($temperatureRange == 0 || $pressureRange == 0){
+				$range = $minTemperature - $minPressure;
+				if($range < 0){
+					$range = $range * -1;
+				}
+				$temperatureScale = Plotter::divideWithZero($range, $minTemperature);
+				$pressureScale = Plotter::divideWithZero($range, $minPressure);
+				$ratingScale = Plotter::divideWithZero($range, $ratingRange);
 			}
-			$temperatureScale = $range / $minTemperature;
-			$pressureScale = $range / $minPressure;
-			$ratingScale = $range / $ratingRange;
-		}
-		else if($temperatureRange > $pressureRange){
-			$pressureScale = $temperatureRange / $pressureRange;
-			$ratingScale = $temperatureRange / $ratingRange;
-		}
-		else {
-			$temperatureScale = $pressureRange / $temperatureRange;
-			$ratingScale = $pressureRange / $ratingRange;
+			else if($temperatureRange > $pressureRange){
+				$pressureScale = Plotter::divideWithZero($temperatureRange, $pressureRange);
+				$ratingScale = Plotter::divideWithZero($temperatureRange, $ratingRange);
+			}
+			else {
+				$temperatureScale = Plotter::divideWithZero($pressureRange, $temperatureRange);
+				$ratingScale = Plotter::divideWithZero($pressureRange, $ratingRange);
+			}
+		} else if ($nullTemperature == false) {
+			$ratingScale = Plotter::divideWithZero($temperatureRange, $ratingRange);
+		} else if ($nullPressure == false) {
+			$ratingScale = Plotter::divideWithZero($pressureRange, $ratingRange);
 		}
 
 		$rating = array();
@@ -171,6 +185,15 @@ class Plotter
 				'pressure' => $pressure
 				);
 		return $arrayData;
+	}
+
+	static private function divideWithZero($numerator,$denominator)
+	{
+		$result = 1;
+		if($denominator != 0) {
+			$result = $numerator / $denominator;
+		}
+		return $result;
 	}
 
 }

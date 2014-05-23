@@ -61,10 +61,10 @@ class PlotController extends Controller
 		/* Create and populate the pData object */
 		$MyData = new pData();
 		$MyData->addPoints($data->rating,"Rating");
-		$MyData->addPoints($data->temperature,"Temperature");
+//		$MyData->addPoints($data->temperature,"Temperature");
 		$MyData->addPoints($data->pressure,"Pressure");
  		$MyData->setSerieWeight("Rating",2);
- 		$MyData->setSerieTicks("Temperature",4);
+// 		$MyData->setSerieTicks("Temperature",4);
  		$MyData->setSerieTicks("Pressure",4);
 
  		/* Create the pChart object */
@@ -87,7 +87,7 @@ class PlotController extends Controller
  
  		/* Write the chart title */ 
  		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/Aller_Rg.ttf","FontSize"=>8,"R"=>255,"G"=>255,"B"=>255));
- 		$myPicture->drawText(10,18,$data->type.' Relative to Temperature and Pressure',array("FontSize"=>9,"Align"=>TEXT_ALIGN_BOTTOMLEFT));
+ 		$myPicture->drawText(10,18,$data->type.' Relative to Pressure',array("FontSize"=>9,"Align"=>TEXT_ALIGN_BOTTOMLEFT));
 
  		/* Set the default font */
  		$myPicture->setFontProperties(array("FontName"=>Yii::app()->basePath."/vendors/pchart/fonts/pf_arma_five.ttf","FontSize"=>6,"R"=>0,"G"=>0,"B"=>0));
@@ -110,7 +110,7 @@ class PlotController extends Controller
  		$myPicture->drawPlotChart(array("DisplayValues"=>FALSE,"PlotBorder"=>TRUE,"BorderSize"=>2,"Surrounding"=>-60,"BorderAlpha"=>80));
 
  		/* Write the chart legend */
- 		$myPicture->drawLegend(530,9,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL, "FontR"=>255,"FontG"=>255,"FontB"=>255));
+ 		$myPicture->drawLegend(600,9,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL, "FontR"=>255,"FontG"=>255,"FontB"=>255));
 
 		header ('Content-type: image/png');
 		$myPicture->Render(null);

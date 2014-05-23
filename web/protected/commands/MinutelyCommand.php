@@ -4,7 +4,7 @@ class MinutelyCommand extends CConsoleCommand
 {
 	const APNS_HOST="gateway.push.apple.com";
 	const APNS_PORT=2195;
-	const READING_RANGE=86400; // 24 hours = 24 * 60 * 60 seconds
+	const READING_RANGE=43200; // +-12 hours = 12 * 60 * 60 seconds
 
 	public function run($args)
 	{
@@ -57,22 +57,25 @@ class MinutelyCommand extends CConsoleCommand
 
 			$distanceConfidence = 3;
 			$criteria = Location::criteriaByRange($rating,MoodRatingMaterializedView::CONFIDENCE_3);
-			$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-			$criteria->order = 'date DESC';
+			$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+			$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+			$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 
 			$readingRecords = BarometricPayload::model()->findAll($criteria);
 			if(!$readingRecords){
 				$distanceConfidence = 2;
 				$criteria = Location::criteriaByRange($rating,MoodRatingMaterializedView::CONFIDENCE_2);
-				$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-				$criteria->order = 'date DESC';
+				$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if(!$readingRecords){
 				$distanceConfidence = 1;
 				$criteria = Location::criteriaByRange($rating,MoodRatingMaterializedView::CONFIDENCE_1);
-				$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-				$criteria->order = 'date DESC';
+				$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if($readingRecords){
@@ -82,6 +85,7 @@ class MinutelyCommand extends CConsoleCommand
 
 				if(count($sortedRecords) > 0){
 					$record = $sortedRecords[0];
+					$record = $readingRecords[0];
 
 					$moodRating = new MoodRatingMaterializedView;
 					$moodRating->reportingUserId = $rating->reportingUserId;
@@ -137,21 +141,24 @@ class MinutelyCommand extends CConsoleCommand
 
 			$distanceConfidence = 3;
 			$criteria = Location::criteriaByRange($rating,PhysicalRatingMaterializedView::CONFIDENCE_3);
-			$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-			$criteria->order = 'date DESC';
+			$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+			$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+			$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 			$readingRecords = BarometricPayload::model()->findAll($criteria);
 			if(!$readingRecords){
 				$distanceConfidence = 2;
 				$criteria = Location::criteriaByRange($rating,PhysicalRatingMaterializedView::CONFIDENCE_2);
-				$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-				$criteria->order = 'date DESC';
+				$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if(!$readingRecords){
 				$distanceConfidence = 1;
 				$criteria = Location::criteriaByRange($rating,PhysicalRatingMaterializedView::CONFIDENCE_1);
-				$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
-				$criteria->order = 'date DESC';
+				$criteria->condition = $criteria->condition . ' AND t.date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->condition = $criteria->condition . ' AND t.date <= DATE_ADD("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
+				$criteria->order = 'ABS( TIMEDIFF( "'.$rating->date.'", t.date ))';
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if($readingRecords){
