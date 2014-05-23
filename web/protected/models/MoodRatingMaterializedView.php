@@ -45,7 +45,7 @@ class MoodRatingMaterializedView extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('reportingUserId, reportingUserMoodRatingId, rating, temperature, pressure, matchConfidence', 'required'),
+			array('reportingUserId, reportingUserMoodRatingId, rating, pressure, matchConfidence', 'required'),
 			array('rating, matchConfidence', 'numerical', 'integerOnly'=>true),
 			array('temperature, pressure', 'numerical'),
 			array('reportingUserId, reportingUserMoodRatingId', 'length', 'max'=>20),

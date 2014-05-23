@@ -30,22 +30,36 @@ class MinutelyCommand extends CConsoleCommand
 
 	public function updateMoodRatingMaterializedView()
 	{
+		$this->log('..................................................');
+		$this->log('.. Matching mood ratings to barametric readings ..');
+		$this->log('..................................................');
+
+
 		$criteria = new CDbCriteria;
 		$criteria->order = 'moodRatingMaterializedViewId DESC';
 		$lastRecord = MoodRatingMaterializedView::model()->find($criteria);
 
 		$criteria = new CDbCriteria;
 		if($lastRecord){
+			$this->log('Located last record in materialized view at [reportingUserMoodRatingId='.$lastRecord->reportingUserMoodRatingId.']');
 			$criteria->condition = 'reportingUserMoodRatingId > '.$lastRecord->reportingUserMoodRatingId;
 		}
 
 		$ratingRecords = ReportingUserMoodRating::model()->findAll($criteria);
+		$this->log('Found ('.count($ratingRecords).') new reportingUserMoodRating records');
 		foreach($ratingRecords as $rating)
 		{
+			$this->log('Processing record ('.$rating->reportingUserMoodRatingId.')');
+			$this->log("\t".'[date='.$rating->date.']');
+			$this->log("\t".'[reportedLatitude='.$rating->reportedLatitude.']');
+			$this->log("\t".'[reportedLongitude='.$rating->reportedLongitude.']');
+			$this->log("\t".'[rating='.$rating->rating.']');
+
 			$distanceConfidence = 3;
 			$criteria = Location::criteriaByRange($rating,MoodRatingMaterializedView::CONFIDENCE_3);
 			$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
 			$criteria->order = 'date DESC';
+
 			$readingRecords = BarometricPayload::model()->findAll($criteria);
 			if(!$readingRecords){
 				$distanceConfidence = 2;
@@ -62,6 +76,7 @@ class MinutelyCommand extends CConsoleCommand
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if($readingRecords){
+				$this->log("\t".'Matched BarometricPayload at distance confidence ('.$distanceConfidence.')');
 				$locationLibrary = new Location;
 				$sortedRecords = $locationLibrary->byDistance($readingRecords,$rating);
 
@@ -87,6 +102,8 @@ class MinutelyCommand extends CConsoleCommand
 					$moodRating->save();
 				} 
 
+			} else {
+				$this->log("\t".'Unable to match BarometricPayload');
 			}
 		}
 
@@ -94,18 +111,30 @@ class MinutelyCommand extends CConsoleCommand
 
 	public function updatePhysicalRatingMaterializedView()
 	{
+		$this->log('......................................................');
+		$this->log('.. Matching physical ratings to barametric readings ..');
+		$this->log('......................................................');
+
 		$criteria = new CDbCriteria;
 		$criteria->order = 'physicalRatingMaterializedViewId DESC';
 		$lastRecord = PhysicalRatingMaterializedView::model()->find($criteria);
 
 		$criteria = new CDbCriteria;
 		if($lastRecord){
+			$this->log('Located last record in materialized view at [reportingUserPhysicalRatingId='.$lastRecord->reportingUserPhysicalRatingId.']');
 			$criteria->condition = 'reportingUserPhysicalRatingId > '.$lastRecord->reportingUserPhysicalRatingId;
 		}
 
 		$ratingRecords = ReportingUserPhysicalRating::model()->findAll($criteria);
+		$this->log('Found ('.count($ratingRecords).') new reportingUserPhysicalRating records');
 		foreach($ratingRecords as $rating)
 		{
+			$this->log('Processing record ('.$rating->reportingUserPhysicalRatingId.')');
+			$this->log("\t".'[date='.$rating->date.']');
+			$this->log("\t".'[reportedLatitude='.$rating->reportedLatitude.']');
+			$this->log("\t".'[reportedLongitude='.$rating->reportedLongitude.']');
+			$this->log("\t".'[rating='.$rating->rating.']');
+
 			$distanceConfidence = 3;
 			$criteria = Location::criteriaByRange($rating,PhysicalRatingMaterializedView::CONFIDENCE_3);
 			$criteria->condition = $criteria->condition . ' AND date >= DATE_SUB("'.$rating->date.'",INTERVAL '.self::READING_RANGE.' SECOND)';
@@ -126,6 +155,8 @@ class MinutelyCommand extends CConsoleCommand
 				$readingRecords = BarometricPayload::model()->findAll($criteria);
 			}
 			if($readingRecords){
+				$this->log("\t".'Matched BarometricPayload at distance confidence ('.$distanceConfidence.')');
+
 				$locationLibrary = new Location;
 				$sortedRecords = $locationLibrary->byDistance($readingRecords,$rating);
 
@@ -151,7 +182,14 @@ class MinutelyCommand extends CConsoleCommand
 					$moodRating->save();
 				} 
 
+			} else {
+				$this->log("\t".'Unable to match BarometricPayload');
 			}
 		}
+	}
+
+	private function log($string)
+	{
+		echo date('Y-m-d H:i:s').": $string\r\n";
 	}
 }

@@ -45,7 +45,7 @@ class PhysicalRatingMaterializedView extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('reportingUserId, reportingUserPhysicalRatingId, rating, temperature, pressure, matchConfidence', 'required'),
+			array('reportingUserId, reportingUserPhysicalRatingId, rating, pressure, matchConfidence', 'required'),
 			array('rating, matchConfidence', 'numerical', 'integerOnly'=>true),
 			array('temperature, pressure', 'numerical'),
 			array('reportingUserId, reportingUserPhysicalRatingId', 'length', 'max'=>20),
