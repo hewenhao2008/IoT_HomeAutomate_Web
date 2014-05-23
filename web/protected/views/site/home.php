@@ -11,29 +11,10 @@ $this->pageTitle=Yii::app()->name;
 <tr>
 <td>
 <?php
-$moodData['type']="Coorelation of Mood with Temperature";
-$moodData['series']=0;
-$encodedMoodData = urlencode(json_encode($moodData));
-echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedMoodData) )); 
-?>
-</td>
-<td>
-<?php
 $moodData['type']="Coorelation of Mood with Pressure";
 $moodData['series']=1;
 $encodedMoodData = urlencode(json_encode($moodData));
 echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedMoodData) )); 
-?>
-</td>
-</tr>
-
-<tr>
-<td>
-<?php
-$physicalData['type']="Coorelation of Physical with Temperature";
-$physicalData['series']=0;
-$encodedPhysicalData = urlencode(json_encode($physicalData));
-echo CHtml::image(Yii::app()->request->baseUrl.$this->createUrl('plot/scatter',array('data'=>$encodedPhysicalData) )); 
 ?>
 </td>
 <td>
