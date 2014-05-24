@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create ReportingUser', 'url'=>array('create')),
-	array('label'=>'Manage ReportingUser', 'url'=>array('admin')),
+	array('label'=>'Create ReportingUser', 'url'=>array('create'), 'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Manage ReportingUser', 'url'=>array('admin'), 'visible'=>Yii::app()->user->getState("admin")),
 );
 ?>
 

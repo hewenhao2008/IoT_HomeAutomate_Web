@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List BarometricPayload', 'url'=>array('index')),
-	array('label'=>'Create BarometricPayload', 'url'=>array('create'),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Update BarometricPayload', 'url'=>array('update', 'id'=>$model->barometricPayloadId),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Delete BarometricPayload', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->barometricPayloadId),'confirm'=>'Are you sure you want to delete this item?'),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Manage BarometricPayload', 'url'=>array('admin'),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Create BarometricPayload', 'url'=>array('create'),'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Update BarometricPayload', 'url'=>array('update', 'id'=>$model->barometricPayloadId),'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Delete BarometricPayload', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->barometricPayloadId),'confirm'=>'Are you sure you want to delete this item?'),'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Manage BarometricPayload', 'url'=>array('admin'),'visible'=>Yii::app()->user->getState("admin")),
 );
 ?>
 

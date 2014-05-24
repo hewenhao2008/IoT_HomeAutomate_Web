@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->reportingUserId)),
-	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->reportingUserId),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	array('label'=>'Create User', 'url'=>array('create'), 'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->reportingUserId), 'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->reportingUserId),'confirm'=>'Are you sure you want to delete this item?'), 'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Manage Users', 'url'=>array('admin'), 'visible'=>Yii::app()->user->getState("admin")),
 );
 ?>
 

@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create ReportingUserPhysicalRating', 'url'=>array('create')),
-	array('label'=>'Manage ReportingUserPhysicalRating', 'url'=>array('admin')),
+	array('label'=>'Create ReportingUserPhysicalRating', 'url'=>array('create'), 'visible'=>Yii::app()->user->getState("admin")),
+	array('label'=>'Manage ReportingUserPhysicalRating', 'url'=>array('admin'), 'visible'=>Yii::app()->user->getState("admin")),
 );
 ?>
 

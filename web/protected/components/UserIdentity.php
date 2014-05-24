@@ -31,6 +31,7 @@ class UserIdentity extends CUserIdentity
 		else
 		{
 			$this->_id=$admin->portalAdministratorId;
+            		$this->setState('admin', true);
 
 			// log login
 			$admin->lastSeen = date('Y-m-d H:i:s');
