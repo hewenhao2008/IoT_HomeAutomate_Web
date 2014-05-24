@@ -51,6 +51,9 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
+		if(!Yii::app()->user->getState('admin')){
+			$id=Yii::app()->user->id;
+		}
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -122,7 +125,13 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$criteria=new CDbCriteria;
+		if(!Yii::app()->user->getState('admin')){
+			$criteria->condition='reportingUserId = :userId';
+			$criteria->params=array(':userId'=>Yii::app()->user->id);
+		}
 		$dataProvider=new CActiveDataProvider('ReportingUser');
+		$dataProvider->criteria=$criteria;
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

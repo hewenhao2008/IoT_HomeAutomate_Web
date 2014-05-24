@@ -122,7 +122,13 @@ class PhysicalController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$criteria=new CDbCriteria;
+		if(!Yii::app()->user->getState('admin')){
+			$criteria->condition='reportingUserId = :userId';
+			$criteria->params=array(':userId'=>Yii::app()->user->id);
+		}
 		$dataProvider=new CActiveDataProvider('ReportingUserPhysicalRating');
+		$dataProvider->criteria=$criteria;
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
