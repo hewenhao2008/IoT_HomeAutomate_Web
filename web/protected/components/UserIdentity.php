@@ -40,6 +40,28 @@ class UserIdentity extends CUserIdentity
 			// no errors
 			$this->errorCode=self::ERROR_NONE;
 		}
+
+
+		if($this->errorCode){
+			$user=ReportingUser::model()->find('LOWER(userName)=?',array($userName));
+			if($user===null)
+				$this->errorCode=self::ERROR_USERNAME_INVALID;
+			else if(strcmp($this->password,$user->password) != 0)
+				$this->errorCode=self::ERROR_PASSWORD_INVALID;
+			else
+			{
+				$this->_id=$user->reportingUserId;
+		    		$this->setState('admin', false);
+
+				// log login
+				$user->lastSeen = date('Y-m-d H:i:s');
+				$user->save();
+
+				// no errors
+				$this->errorCode=self::ERROR_NONE;
+			}			
+		}
+
 		return !$this->errorCode;
 	}
 
