@@ -10,6 +10,7 @@ class Plotter
 		$criteria->order = 'moodRatingMaterializedViewId DESC';
 		$criteria->limit = 20;
 		$records = MoodRatingMaterializedView::model()->findAll($criteria);
+		$records = array_reverse($records);
 
 		$normalizedData = Plotter::normalizeData($records);
 		$normalizedData['type'] = 'Mood';
@@ -25,6 +26,7 @@ class Plotter
 		$criteria->order = 'physicalRatingMaterializedViewId DESC';
 		$criteria->limit = 20;
 		$records = PhysicalRatingMaterializedView::model()->findAll($criteria);
+		$records = array_reverse($records);
 
 		$normalizedData = Plotter::normalizeData($records);
 		$normalizedData['type'] = 'Physical';
@@ -65,6 +67,7 @@ class Plotter
 		$criteria->order = 'barometricPayloadId DESC';
 		$criteria->limit = 50;
 		$records = BarometricPayload::model()->findAll($criteria);
+		$records = array_reverse($records);
 
 		$pressure = array();
 		foreach($records as $record){
